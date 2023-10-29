@@ -32,7 +32,7 @@ public class MedicinesView extends VerticalLayout {
         H6 textSearch = new H6("You don't remember why you have the medicine?");
         Paragraph textMedium = new Paragraph("Info about medicine");
         H6 moreInfo = new H6("More information at the link");
-        Anchor linkGoogle = new Anchor("link");
+        Anchor linkGoogle = new Anchor("link", "More Info in this link");
         private final MedicineService service;
         private final AnswerService answerService;
         private Answer answer;
@@ -86,9 +86,9 @@ public class MedicinesView extends VerticalLayout {
             filterText.setPattern("^[a-zA-Z\\s]+");
             filterText.setErrorMessage("Letter only. Min 2 chars");
 
-      //      textMedium.setVisible(false);
-      //      moreInfo.setVisible(false);
-      //      linkGoogle.setVisible(false);
+            textMedium.setVisible(false);
+            moreInfo.setVisible(false);
+            linkGoogle.setVisible(false);
             Button addMedicineButton = new Button("Add medicine");
             addMedicineButton.addClickListener(click -> addMedicine());
 
@@ -103,11 +103,14 @@ public class MedicinesView extends VerticalLayout {
             if (filterText.isInvalid()) {
                 textMedium.setText("Invalid question. Ask in English");
             } else {
-                answerService.getNewSnippet(filterText.getValue());
+                Answer newAnswer = new Answer();
+                newAnswer = answerService.getNewSnippet(filterText.getValue());
                 textMedium.setVisible(true);
-                textMedium.setText(answer.getSnippet());
+                textMedium.setText(newAnswer.getSnippet());
                 moreInfo.setVisible(true);
                 linkGoogle.setVisible(true);
+                linkGoogle.setTarget("_blank");
+                linkGoogle.setHref(newAnswer.getLink());
             }
         }
 

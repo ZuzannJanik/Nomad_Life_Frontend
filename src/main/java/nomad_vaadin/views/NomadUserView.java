@@ -16,7 +16,7 @@ import nomad_vaadin.service.NomadUserService;
 import org.springframework.stereotype.Component;
 
 @PageTitle("NomadUser")
-@Route(value = "nomadusers", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @Uses(Icon.class)
 @Component
 public class NomadUserView extends VerticalLayout {
